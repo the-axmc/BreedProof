@@ -1,0 +1,9 @@
+1,1,2,main.is_valid
+2,2,2,main.dna_hash
+3,3,2,main.expected_hash
+4,-1,1,main.isEq.out
+5,-1,1,main.isEq.in[0]
+6,-1,1,main.isEq.in[1]
+7,-1,0,main.isEq.isz.out
+8,4,0,main.isEq.isz.in
+9,5,0,main.isEq.isz.inv

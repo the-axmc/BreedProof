@@ -1,0 +1,16 @@
+build_mode = "debug"
+target_adapters = ["circom"]
+target_platforms = [
+    "android",
+    "web",
+    "ios",
+]
+ios = [
+    "aarch64-apple-ios-sim",
+    "x86_64-apple-ios",
+    "aarch64-apple-ios",
+]
+android = [
+    "x86_64-linux-android",
+    "aarch64-linux-android",
+]

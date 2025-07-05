@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "cli",
+    "cli/BreedProof"
+]
+resolver = "2"
