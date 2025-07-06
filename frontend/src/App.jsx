@@ -123,7 +123,7 @@ function App() {
         <input
           id="dna-upload"
           type="file"
-          accept=".txt,.bin"
+          accept=".txt,.bin,.pdf"
           onChange={handleUploadDNA}
         />
         {dnaHash && <p><strong>DNA Hash:</strong> {dnaHash.slice(0, 14)}…</p>}
@@ -137,7 +137,7 @@ function App() {
 
       <div className="card">
         <p className="card-title">🔐 Zero-Knowledge Proof</p>
-        <button onClick={handleZKProof}>Prove DNA Ownership</button>
+        <button onClick={handleZKProof}>Claim DNA Ownership</button>
         {zkStatus && <p><em>{zkStatus}</em></p>}
       </div>
 
