@@ -1,0 +1,9 @@
+type Animal @entity(immutable: false) {
+  id: ID!
+  animalId: String!
+  name: String!
+  species: String!
+  owner: Bytes!
+  score: BigInt
+  verified: Boolean
+}

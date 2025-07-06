@@ -1,0 +1,94 @@
+body {
+  font-family: 'Georgia', serif;
+  background: #f8f7f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border: 2px solid #d4cfc3;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2rem;
+  color: #4b3621;
+  margin-bottom: 2rem;
+}
+
+button, .upload-btn {
+  display: inline-block;
+  background: #4b3621;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover, .upload-btn:hover {
+  background: #6e4e32;
+}
+
+.upload-btn {
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+p {
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+strong {
+  color: #2a1d0d;
+}
+
+em {
+  font-style: italic;
+  color: #444;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(250, 248, 244, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  flex-direction: column;
+  text-align: center;
+}
+
+.spinner {
+  border: 6px solid #eee;
+  border-top: 6px solid #4b3621;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

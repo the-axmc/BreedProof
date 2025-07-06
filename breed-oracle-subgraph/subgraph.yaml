@@ -1,0 +1,29 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+
+dataSources:
+  - kind: ethereum/contract
+    name: BreedOracleConsumer
+    network: alfajores
+    source:
+      address: "0xd3D4440a94f9bB0d06D5BE33eB153D50A8ae0b5f"
+      abi: BreedOracleConsumer
+      startBlock: 12345678
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Animal
+      abis:
+        - name: BreedOracleConsumer
+          file: ./abis/BreedOracleConsumer.json
+      eventHandlers:
+        - event: AnimalRegistered(indexed string,indexed bytes32,string,string,indexed address)
+          handler: handleAnimalRegistered
+        - event: ScoreAssigned(indexed string,uint256)
+          handler: handleScoreAssigned
+        - event: AnimalVerified(indexed string,bool)
+          handler: handleAnimalVerified
+      file: ./src/mapping.ts
