@@ -37,7 +37,7 @@ function App() {
   }
 
   const handleValidateOracle = async () => {
-    setOracleStatus('🔗 Contacting Chainlink + The Graph...')
+    setOracleStatus('🔗 Contacting Genetics DB...')
     setTimeout(() => {
       setOracleStatus('✅ Breed data confirmed on-chain')
     }, 1500)
@@ -48,7 +48,6 @@ function App() {
     setIsProving(true)
     setProgress(0)
 
-    // Progress bar simulator
     let val = 0
     const interval = setInterval(() => {
       val += 7
@@ -112,33 +111,42 @@ function App() {
     <div className="container">
       <h1>🐄 BreedVault ZK</h1>
 
-      <button onClick={handleScanTag}>📎 Scan Animal Tag</button>
-      {animalId && <p><strong>Tag ID:</strong> {animalId}</p>}
+      <div className="card">
+        <p className="card-title">📎 Animal Tag</p>
+        <button onClick={handleScanTag}>Scan Tag</button>
+        {animalId && <p><strong>Tag ID:</strong> {animalId}</p>}
+      </div>
 
-      <label htmlFor="dna-upload" className="upload-btn">🧬 Upload DNA Sample</label>
-      <input
-        id="dna-upload"
-        type="file"
-        accept=".txt,.bin"
-        onChange={handleUploadDNA}
-        style={{ display: 'none' }}
-      />
-      {dnaHash && <p><strong>DNA Hash:</strong> {dnaHash.slice(0, 14)}…</p>}
+      <div className="card">
+        <p className="card-title">🧬 DNA Sample</p>
+        <label htmlFor="dna-upload" className="upload-btn">Upload DNA File</label>
+        <input
+          id="dna-upload"
+          type="file"
+          accept=".txt,.bin"
+          onChange={handleUploadDNA}
+        />
+        {dnaHash && <p><strong>DNA Hash:</strong> {dnaHash.slice(0, 14)}…</p>}
+      </div>
 
-      <button onClick={handleValidateOracle}>🔍 Validate Breed Info</button>
-      {oracleStatus && <p><em>{oracleStatus}</em></p>}
+      <div className="card">
+        <p className="card-title">🔍 Breed Database</p>
+        <button onClick={handleValidateOracle}>Validate Breed Info</button>
+        {oracleStatus && <p><em>{oracleStatus}</em></p>}
+      </div>
 
-      <button onClick={handleZKProof}>🔐 Prove DNA Ownership (ZK)</button>
-      {zkStatus && <p><em>{zkStatus}</em></p>}
+      <div className="card">
+        <p className="card-title">🔐 Zero-Knowledge Proof</p>
+        <button onClick={handleZKProof}>Prove DNA Ownership</button>
+        {zkStatus && <p><em>{zkStatus}</em></p>}
+      </div>
 
       {isProving && (
-        <div className="modal-backdrop">
-          <div className="modal">
-            <h3>🧬 Please wait while we prove the pedigree...</h3>
-            <div className="dna-spinner"></div>
-            <div className="progress-container">
-              <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-            </div>
+        <div className="modal">
+          <h3>🧬 Please wait while we prove the pedigree...</h3>
+          <div className="dna-spinner"></div>
+          <div className="progress-container">
+            <div className="progress-bar" style={{ width: `${progress}%` }}></div>
           </div>
         </div>
       )}
