@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
+import NfcManager, { NfcTech } from 'react-native-nfc-manager';
 
 import { generateProof } from '../zk/prover'
 import { ethers } from 'ethers'
@@ -16,11 +17,37 @@ function App() {
   const [zkStatus, setZkStatus] = useState(null)
   const [isProving, setIsProving] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [nfcStatus, setNfcStatus] = useState(null);
 
-  const handleScanTag = () => {
-    const tag = prompt('🔍 Enter Animal Tag ID (e.g. NFC scan)')
-    if (tag) setAnimalId(tag)
-  }
+  useEffect(() => {
+    NfcManager.start();
+    return () => {
+      NfcManager.cancelTechnologyRequest().catch(() => 0);
+    }
+  }, []);
+
+  const handleScanTag = async () => {
+    setNfcStatus('📡 Scanning for NFC Tag...');
+    try {
+      await NfcManager.requestTechnology(NfcTech.Ndef);
+      const tag = await NfcManager.getTag();
+      if (tag && tag.ndefMessage && tag.ndefMessage.length > 0) {
+        // Assuming the tag ID is in the first record, payload
+        const payload = tag.ndefMessage[0].payload;
+        // Convert payload to string (assuming UTF-8 encoding)
+        const tagId = String.fromCharCode.apply(null, payload.slice(3)); // Skip language code bytes
+        setAnimalId(tagId);
+        setNfcStatus(`✅ Tag Scanned: ${tagId}`);
+      } else {
+        setNfcStatus('❌ No NDEF message found on tag.');
+      }
+    } catch (ex) {
+      console.warn('NFC Scan Error!', ex);
+      setNfcStatus(`❌ Error: ${ex.message || ex.toString()}`);
+    } finally {
+      NfcManager.cancelTechnologyRequest().catch(() => 0);
+    }
+  };
 
   const handleUploadDNA = async (e) => {
     const file = e.target.files[0]
@@ -115,6 +142,7 @@ function App() {
         <p className="card-title">📎 Animal Tag</p>
         <button onClick={handleScanTag}>Scan Tag</button>
         {animalId && <p><strong>Tag ID:</strong> {animalId}</p>}
+        {nfcStatus && <p><em>{nfcStatus}</em></p>}
       </div>
 
       <div className="card">
